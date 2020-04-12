@@ -31,14 +31,14 @@ module.exports.list = (req, res) => {
         .catch(err => res.json(err))
 }
 
-// module.exports.create = (req, res) => {
-//     const body = req.body
-//     console.log(body)
-//     const clusterData = new ClusterModel(body)
-//     clusterData.save()
-//         .then(cluster => res.json(cluster))
-//         .catch(err => res.json(err))
-// }
+module.exports.create = (req, res) => {
+    const body = req.body
+    console.log(body)
+    const clusterData = new ClusterModel(body)
+    clusterData.save()
+        .then(cluster => res.json(cluster))
+        .catch(err => res.json(err))
+}
 
 module.exports.update = (req, res) => {
     const id = req.params.id

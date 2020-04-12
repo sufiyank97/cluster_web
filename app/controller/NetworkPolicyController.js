@@ -24,10 +24,10 @@ module.exports.list = (req, res) => {
         .catch(err => res.json(err))
 }
 
-// module.exports.create = (req, res) => {
-//     const body = req.body
-//     const nwk = new NetworkPolicy(body)
-//     nwk.save()
-//         .then(nwks => res.json(nwks))
-//         .catch(err => res.json(err))
-// }
+module.exports.create = (req, res) => {
+    const body = req.body
+    const nwk = new NetworkPolicy(body)
+    nwk.save()
+        .then(nwks => res.json(nwks))
+        .catch(err => res.json(err))
+}
