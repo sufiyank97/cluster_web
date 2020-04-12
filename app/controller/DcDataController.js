@@ -1,17 +1,34 @@
 const DcDataModel = require('../models/DcData')
 
+
+const dcData1 = new DcDataModel({
+    dc: "dc1",
+    env: "development"
+})
+const dcData2 = new DcDataModel({
+    dc: "dc2",
+    env: "development"
+})
+const dcData3 = new DcDataModel({
+    dc: "dc1",
+    env: "production"
+})
+const dcData4 = new DcDataModel({
+    dc: "dc2",
+    env: "production"
+})
+dcData1.save()
+dcData2.save()
+dcData3.save()
+dcData4.save()
 module.exports.list = (req, res) => {
-    DcDataModel.find().populate('planName').populate('networkPolicy').populate('cluster')
+    DcDataModel.find()
         .then(datas => res.json(datas))
         .catch(err => res.json(err))
 }
 
 module.exports.create = (req, res) => {
     const body = req.body
-    body.planName = String(body.planName)
-    body.networkPolicy = String(body.networkPolicy)
-    body.cluster = String(body.cluster)
-    console.log(body)
     const dcData = new DcDataModel(body)
     dcData.save()
         .then(data => res.json(data))
@@ -20,7 +37,7 @@ module.exports.create = (req, res) => {
 
 module.exports.show = (req, res) => {
     const id = req.params.id
-    DcDataModel.findOne({ _id: id }).populate('planName').populate('networkPolicy').populate('cluster')
+    DcDataModel.findOne({ _id: id })
         .then(data => res.json(data))
         .catch(err => res.json(err))
 }

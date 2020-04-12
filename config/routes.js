@@ -10,6 +10,8 @@ const HostNameController = require('../app/controller/HostNameController')
 router.get('/platform/v1/cluster_list', ClusterController.list)
 router.post('/platform/v1/cluster_list', ClusterController.create)
 router.put('/platform/v1/cluster_list/:id', ClusterController.update)
+router.get('/platform/v1/cluster_list/:id', ClusterController.show)
+router.delete('/platform/v1/cluster_list/:id', ClusterController.delete)
 
 router.get('/admin/hostname', HostNameController.list)
 router.post('/admin/hostname', HostNameController.create)

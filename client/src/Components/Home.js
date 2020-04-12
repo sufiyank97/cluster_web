@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './home.css'
 import { useForm } from 'react-hook-form'
 import { BrowserRouter, Link, Route, Switch, NavLink } from 'react-router-dom'
-
+import swal from 'sweetalert'
 import CPP1 from './Pages/CP1/cpp1'
 import Admin from './Pages/CP1/admin'
 import { Modal, Button } from 'react-bootstrap'
@@ -32,6 +32,11 @@ const Home = () => {
         }
         logOut()
     }
+    const handleReset = () => {
+        if (!localStorage.getItem('token')) {
+            swal('Error!', 'Login the Page', 'warning')
+        }
+    }
     return (
         <BrowserRouter>
             <React.Fragment>
@@ -40,10 +45,10 @@ const Home = () => {
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div className="navbar-nav ">
 
-                            <NavLink to="/cp1" activeClassName="active1" className="navlink">CP1</NavLink>
-                            <NavLink to="/cp2" activeClassName="active1" className="navlink">CP2</NavLink>
-                            <NavLink to="/cp3" activeClassName="active1" className="navlink">CP3</NavLink>
-                            <NavLink to="/admin" activeClassName="active1" className="navlink">Admin</NavLink>
+                            <NavLink to="/cp1" onClick={handleReset} activeClassName="active1" className="navlink">CP1</NavLink>
+                            <NavLink to="/cp2" onClick={handleReset} activeClassName="active1" className="navlink">CP2</NavLink>
+                            <NavLink to="/cp3" onClick={handleReset} activeClassName="active1" className="navlink">CP3</NavLink>
+                            <NavLink to="/admin" onClick={handleReset} activeClassName="active1" className="navlink">Admin</NavLink>
 
                         </div>
                         {
@@ -84,7 +89,6 @@ const Home = () => {
                                     </table>
                                 </div >
                             </div >
-
                         ))}
                 {localStorage.getItem('token') ? (
                     <Switch>
@@ -93,7 +97,8 @@ const Home = () => {
                     </Switch>
                 ) : (
                         <span></span>
-                    )}
+                    )
+                }
 
                 <Modal show={show} onHide={handleClose} dialogClassName="modal-90w" centered>
                     <Modal.Header closeButton>

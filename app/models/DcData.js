@@ -9,32 +9,7 @@ const dcDataSchema = new Schema({
     env: {
         type: String,
         required: true
-    },
-    clusterName: {
-        type: String,
-        required: true
-    },
-    planName: {
-        type: Schema.Types.ObjectId,
-        ref: 'PlanName',
-        required: true
-    },
-    networkPolicy: {
-        type: Schema.Types.ObjectId,
-        ref: 'NetworkPolicy',
-        required: true
-    },
-    role: [
-        String
-    ],
-    cluster: {
-        type: Schema.Types.ObjectId,
-        ref: 'ClusterModel'
-    },
-    createdAt: {
-        type: Date,
-        default: Date
-    },
+    }
 })
 
 const DcDataModel = mongoose.model('DcDataModel', dcDataSchema)

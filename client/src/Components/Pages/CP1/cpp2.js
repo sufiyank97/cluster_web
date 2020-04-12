@@ -15,28 +15,21 @@ const CPP2 = ({ Dcs, envs, sh }) => {
 
     const callCp1 = async () => {
         console.log('callCP1')
-        const res = await axios.get('/platform/v1/deploy')
+        const res = await axios.get('/platform/v1/cluster_list')
         try {
             const data = res.data
-            console.log(data, 'data')
-            const values = data.filter(d1 =>
-                d1.cluster.name === "cs-1"
-            )
-            console.log(values)
+            console.log(data)
             let dc1 = data.filter(dc1 =>
-                dc1.dc === Dcs
+                dc1.dcData.dc === Dcs && dc1.dcData.env === envs
             )
-            console.log(dc1)
+            console.log(dc1, "dddddddddd")
             getDc1Data(dc1)
         }
         catch (err) {
-
             console.log(err)
-            console.log(res.data)
-            console.log('11')
         }
     }
-    console.log(dc1Data, 'DC1DATA')
+
     useEffect(
         () => {
             callCp1()
@@ -52,11 +45,12 @@ const CPP2 = ({ Dcs, envs, sh }) => {
 
         const deleteData = async (id) => {
 
-            const res = await axios.delete(`/platform/v1/deploy/${id}`)
+            const res = await axios.delete(`/platform/v1/cluster_list/${id}`)
             try {
                 if (res.errors) {
                     window.alert(res.errors)
                 } else {
+                    console.log(res.data)
                     getDc1Data(dc1Data.filter(d1 => d1._id != id))
                 }
             } catch (err) {
@@ -95,18 +89,17 @@ const CPP2 = ({ Dcs, envs, sh }) => {
                 </thead>
                 <tbody>
                     {
-                        dc1Data.filter(d1 =>
-                            d1.env === envs
-                        ).map((d1, i) => {
+                        dc1Data.map((d1, i) => {
+                            console.log(d1.status)
                             return (
                                 <tr key={i + 1}>
                                     <td>{i + 1}</td>
                                     <td>{d1.createdAt.split('T')[0].split('-').reverse().join('-')}</td>
                                     <td>{d1.clusterName}</td>
                                     <td>
-                                        {(d1.cluster.status === "inprogress") ? (
+                                        {(d1.status === "inprogress") ? (
                                             <label className="pro1 progress1">INPROGRESS</label>
-                                        ) : (d1.cluster.status === "created") ? (
+                                        ) : (d1.status === "created") ? (
                                             <label className="pro1 progress3">Created</label>
                                         ) :
                                                 (
@@ -123,7 +116,8 @@ const CPP2 = ({ Dcs, envs, sh }) => {
                                     </td>
                                 </tr>
                             )
-                        })
+                        }
+                        )
                     }
                 </tbody>
             </table>

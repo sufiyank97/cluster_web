@@ -12,20 +12,19 @@ const ClusterForm1 = ({ id, handleClose, Dcs, envs }) => {
     const [planName, getPlanName] = useState([])
     const [networkPolicy, getNetworkPolicy] = useState([])
     const { handleSubmit, register } = useForm()
-    const [clusters, getCluster] = useState([])
+    const [dcData, getDcData] = useState([])
     useEffect(
         () => {
             const updateData = async () => {
-                const res = await axios.get(`/platform/v1/deploy/${id}`)
+                const res = await axios.get(`/platform/v1/cluster_list/${id}`)
                 const res1 = await axios.get('/platform/v1/plan_name')
                 const res2 = await axios.get('/platform/v1/network_policy')
-                const res3 = await axios.get(`/platform/v1/cluster_list`)
+                const res3 = await axios.get('/platform/v1/deploy')
                 try {
-
                     getData(res.data)
                     getPlanName(res1.data)
                     getNetworkPolicy(res2.data)
-                    getCluster(res3.data)
+                    getDcData(res3.data)
                 } catch (err) {
                     console.log(err)
                 }
@@ -38,36 +37,41 @@ const ClusterForm1 = ({ id, handleClose, Dcs, envs }) => {
 
     const onSubmit = (data1) => {
         if (id) {
+            console.log('UPDATED')
             data1.role = data1.role.split(';')
-            const status = data1.cluster
-            let clusterData = data.cluster
-            data1.cluster = clusterData._id
-            clusterData.status = status
+            delete data1.dcName
+            delete data1.env
+            dcData.map(d1 => {
+                if (d1.dc === Dcs && d1.env === envs) {
+                    data1.dcData = d1._id
+                }
+            })
+            console.log(data1)
             const updateData = async () => {
-                const res = await axios.put(`/platform/v1/deploy/${id}`, data1)
-                const res1 = await axios.put(`/platform/v1/cluster_list/${clusterData._id}`, clusterData)
+                const res1 = await axios.put(`/platform/v1/cluster_list/${id}`, data1)
                 try {
                     handleClose()
+                    getData({})
                 } catch (err) {
                     console.log(err)
                 }
             }
             updateData()
         } else {
+            console.log('CREATE')
             data1.role = data1.role.split(';')
-            console.log(clusters)
-            clusters.map(c1 => {
-                if (c1.name === "cs-1") {
-                    console.log(c1.name, '  dfdsf ', c1._id)
-                    data1.cluster = c1._id
-                    // newCluster += c1._id
-                    console.log(data1)
+            delete data1.dcName
+            delete data1.env
+
+            dcData.map(d1 => {
+                if (d1.dc === Dcs && d1.env === envs) {
+                    data1.dcData = d1._id
                 }
             })
+            console.log(data1)
             const addData = async () => {
-                const res = await axios.post(`/platform/v1/deploy`, data1)
+                const res = await axios.post(`/platform/v1/cluster_list`, data1)
                 try {
-
                     handleClose()
                 } catch (err) {
                     console.log(err)
@@ -94,8 +98,8 @@ const ClusterForm1 = ({ id, handleClose, Dcs, envs }) => {
                     <div className="form-group row">
                         <label htmlFor="dcName" >DC Name:</label>
                         <div className="col-sm-4" style={{ marginLeft: '31px' }}>
-                            <input type="text" id="dcName" name="dc"
-                                ref={register} defaultValue={(data.dc) ? data.cs : Dcs} className="form-control" />
+                            <input type="text" id="dcName" name="dcName"
+                                ref={register({ required: true })} value={Dcs} className="form-control" />
                         </div>
                     </div>
 
@@ -103,7 +107,7 @@ const ClusterForm1 = ({ id, handleClose, Dcs, envs }) => {
                         <label htmlFor="env" >Env Name:</label>
                         <div className="col-sm-4" style={{ marginLeft: '27px' }}>
                             <input type="text" id="env" name="env"
-                                ref={register({ required: true })} defaultValue={(data.env) ? data.env : envs} className="form-control" />
+                                ref={register({ required: true })} value={envs} className="form-control" />
                         </div>
                     </div>
 
@@ -118,8 +122,8 @@ const ClusterForm1 = ({ id, handleClose, Dcs, envs }) => {
                     <div className="form-group row">
                         <label htmlFor="fdn" >FDN:</label>
                         <div className="col-sm-4" style={{ marginLeft: '65px' }}>
-                            <input type="text" id="fqdn" name="fqdn"
-                                ref={register} defaultValue={(data.cluster) ? data.cluster.fqdn : ''} className="form-control" />
+                            <input type="text" id="fdn" name="fdn"
+                                ref={register({ required: true })} defaultValue={(data.fdn) ? data.fdn : ''} className="form-control" />
                         </div>
                     </div>
 
@@ -179,27 +183,27 @@ const ClusterForm1 = ({ id, handleClose, Dcs, envs }) => {
                     </div>
 
                     {
-                        (data.cluster) ? (
+                        (data.status) ? (
                             <div className="form-group row">
                                 <label htmlFor="status" >Status:</label>
                                 <div className="col-sm-4" style={{ marginLeft: '53px' }}>
-                                    <select id="status" name="cluster"
-                                        ref={register} defaultValue={data.cluster.status} className="form-control">
-                                        {(data.cluster.status === "inprogress") ? (
+                                    <select id="status" name="status"
+                                        ref={register} defaultValue={data.status} className="form-control">
+                                        {(data.status === "inprogress") ? (
                                             <>
-                                                <option value={data.cluster.status}>{data.cluster.status}</option>
+                                                <option value={data.status}>{data.status}</option>
                                                 <option value="completed">completed</option>
                                                 <option value="created">created</option>
                                             </>
-                                        ) : (data.cluster.status === "created") ? (
+                                        ) : (data.status === "created") ? (
                                             <>
-                                                <option value={data.cluster.status}>{data.cluster.status}</option>
+                                                <option value={data.status}>{data.status}</option>
                                                 <option value="completed">completed</option>
                                                 <option value="inprogress">inprogress</option>
                                             </>
                                         ) : (
                                                     <>
-                                                        <option value={data.cluster.status}>{data.cluster.status}</option>
+                                                        <option value={data.status}>{data.status}</option>
                                                         <option value="created">created</option>
                                                         <option value="inprogress">inprogress</option>
                                                     </>

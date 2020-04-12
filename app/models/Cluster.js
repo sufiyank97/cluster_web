@@ -2,15 +2,39 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const autoIncrement = require('mongoose-auto-increment');
 const clusterSchema = new Schema({
-
-    name: {
-        type: String
+    clusterName: {
+        type: String,
+        required: true
     },
-    fqdn: {
-        type: String
+    fdn: {
+        type: String,
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date
+    },
+    planName: {
+        type: Schema.Types.ObjectId,
+        ref: 'PlanName',
+        required: true
+    },
+    networkPolicy: {
+        type: Schema.Types.ObjectId,
+        ref: 'NetworkPolicy',
+        required: true
     },
     status: {
-        type: String
+        type: String,
+        default: "created"
+    },
+    role: [
+        String
+    ],
+    dcData: {
+        type: Schema.Types.ObjectId,
+        ref: 'DcDataModel',
+        required: true
     }
 })
 autoIncrement.initialize(mongoose.connection);
