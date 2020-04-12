@@ -19,7 +19,7 @@ const CPP2 = ({ Dcs, envs, sh }) => {
             const data = res.data
             console.log(data)
             const values = data.filter(d1 =>
-                d1.cluster.name === "cs1"
+                d1.cluster.name === "cs-1"
             )
             let dc1 = values.filter(dc1 =>
                 dc1.dc === Dcs
