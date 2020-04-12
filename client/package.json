@@ -20,10 +20,9 @@
     "sweetalert": "^2.1.2"
   },
   "scripts": {
-    "dev": "npm-run-all --parallel dev:react",
-    "dev:react": "react-scripts start",
-    "dev:json": "json-server -p 4000 --watch --no-cors data.json",
+    "start": "react-scripts start",
     "build": "react-scripts build",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
