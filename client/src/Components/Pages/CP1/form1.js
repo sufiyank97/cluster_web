@@ -21,6 +21,10 @@ const ClusterForm1 = ({ id, handleClose, Dcs, envs }) => {
                 const res2 = await axios.get('/platform/v1/network_policy')
                 const res3 = await axios.get(`/platform/v1/cluster_list`)
                 try {
+                    console.log(res.data)
+                    console.log(res1.data)
+                    console.log(res2.data)
+                    console.log(res3.data)
                     getData(res.data)
                     getPlanName(res1.data)
                     getNetworkPolicy(res2.data)
