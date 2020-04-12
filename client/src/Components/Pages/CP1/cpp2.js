@@ -57,7 +57,7 @@ const CPP2 = ({ Dcs, envs, sh }) => {
                     getDc1Data(dc1Data.filter(d1 => d1._id != id))
                 }
             } catch (err) {
-                console.log(err
+                console.log(err)
             }
         }
         swal({
