@@ -14,6 +14,7 @@ const CPP2 = ({ Dcs, envs, sh }) => {
     }
 
     const callCp1 = async () => {
+        console.log('callCP1')
         const res = await axios.get('/platform/v1/deploy')
         try {
             const data = res.data
