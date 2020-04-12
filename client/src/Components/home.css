@@ -1,0 +1,32 @@
+.navbar-light .navbar-nav .nav-link {
+    color: black;
+    
+}
+.navbar-light .navbar-nav{
+    
+    justify-content: space-between;
+}
+a:hover{
+    color:black;
+    text-decoration: none;
+}
+a{
+    color:black;
+}
+.nav-link:hover{
+    text-decoration: none;
+}
+.active{
+    color:#ebc354;
+    text-decoration: none;
+    border-bottom: 0.5px solid #ebc354;
+    padding-bottom: 0.4em;
+}
+.active:hover{
+    text-decoration: none;
+}
+.navlink{
+    font-size: larger;
+    /* border-bottom: 0.5px solid white; */
+    margin-right: 1em;
+}

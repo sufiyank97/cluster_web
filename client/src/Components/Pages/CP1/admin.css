@@ -1,0 +1,32 @@
+.container{
+    border:1px solid #fff;
+    border-radius: 10px;
+    background-color: white;
+    
+}
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: black;
+    background-color: #ebc354;
+    font-size: xx-large;
+    text-align-last: center;
+    padding-top: 0.6em;
+    text-decoration: none;
+}
+.nav-pills .nav-link{
+    height:3em;
+    color: black;
+    /* background-color: #007bff; */
+    font-size: xx-large;
+    text-align-last: center;
+    padding-top: 0.6em;
+    margin-bottom: 0.2em;
+}
+.active{
+    color: black;
+    text-decoration: none;
+    border-bottom: none;
+}
+.bbb{
+    margin-left: 11em;
+    margin-top: 0.5em;
+}

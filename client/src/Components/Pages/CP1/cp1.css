@@ -1,0 +1,45 @@
+#cp1{
+    background-color: #e4e4e4;    
+}
+h4{
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 1em;
+}
+.container{
+    border:1px solid #fff;
+    border-radius: 10px;
+    background-color: white;
+    
+}
+.progress1{
+    color:#679fdc;
+    background-color: #e2ebfa;
+    border-color: #e2ebfa;
+    font-weight: bold;
+}
+.progress2{
+    color:#44be8d;
+    background-color: #dcfce7;
+    border-color: #dcfce7;
+    font-weight: bold;
+}
+.progress3{
+    color:#f5362c;
+    background-color: #f5bfb5;
+    border-color: #f5bfb5;
+    font-weight: bold;
+}
+.pro1{
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+}
+.createCluster{
+    border-radius: 25px;
+}
+.modal-backdrop {
+    background-color: #f5f5f5;
+ }
+ .modal-header{
+    border-bottom:0
+ }

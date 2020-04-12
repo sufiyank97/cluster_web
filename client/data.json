@@ -1,0 +1,140 @@
+{
+  "dc1": [
+    {
+      "id": 1,
+      "hostname": "dc1 hostname"
+    }
+  ],
+  "dc2": [
+    {
+      "id": 1,
+      "hostname": "dc2 hostname"
+    }
+  ],
+  "user": {
+    "username": "admin",
+    "password": "admin"
+  },
+  "dev": [
+    {
+      "projectName": "dev",
+      "clusterName": "cl1_de",
+      "fdn": "fdn1",
+      "planName": "plan1",
+      "networkPolicy": "network1",
+      "status": "completed",
+      "date": "1-2-2020",
+      "dc1Id": 1,
+      "id": 1
+    },
+    {
+      "projectName": "dev",
+      "clusterName": "cl1",
+      "fdn": "sdsf",
+      "planName": "data1",
+      "networkPolicy": "data1",
+      "status": "completed",
+      "date": "1-2-2020",
+      "dc1Id": 1,
+      "id": 2
+    },
+    {
+      "id": 3,
+      "date": "1-2-2020",
+      "clusterName": "cl1_dev",
+      "projectName": "dev",
+      "fdn": "",
+      "planName": "",
+      "networkPolicy": "",
+      "status": "inprogress",
+      "dc2Id": 1
+    },
+    {
+      "id": 4,
+      "date": "1/2/2020",
+      "clusterName": "cl1_dev",
+      "projectName": "dev",
+      "fdn": "",
+      "planName": "",
+      "networkPolicy": "",
+      "status": "inprogress",
+      "dc2Id": 1
+    },
+    {
+      "projectName": "",
+      "clusterName": "fsdff",
+      "fdn": "",
+      "planName": "",
+      "networkPolicy": "",
+      "date": "11/4/2020",
+      "id": 5,
+      "status": "inprogress",
+      "dc1Id": 1
+    },
+    {
+      "projectName": "",
+      "clusterName": "dfsdfdsf",
+      "fdn": "",
+      "planName": "",
+      "networkPolicy": "",
+      "date": "11/4/2020",
+      "id": 6,
+      "status": "inprogress",
+      "dc1Id": 1
+    }
+  ],
+  "prod": [
+    {
+      "id": 1,
+      "date": "1/2/2020",
+      "clusterName": "cl1_prod",
+      "fdn": "",
+      "planName": "",
+      "networkPolicy": "",
+      "status": "",
+      "dc1Id": 1
+    },
+    {
+      "projectName": "sdsa",
+      "clusterName": "cl2_",
+      "fdn": "sfsdfs",
+      "planName": "data1",
+      "networkPolicy": "data1",
+      "date": "2/2/2020",
+      "dc1Id": 1,
+      "id": 2
+    },
+    {
+      "projectName": "",
+      "clusterName": "cl1_pro",
+      "fdn": "",
+      "planName": "",
+      "networkPolicy": "",
+      "date": "1/2/2020",
+      "dc2Id": 1,
+      "id": 3
+    },
+    {
+      "projectName": "",
+      "clusterName": "dc2prod",
+      "fdn": "",
+      "planName": "",
+      "networkPolicy": "",
+      "date": "11/4/2020",
+      "id": 4,
+      "status": "inprogress",
+      "dc2Id": 1
+    },
+    {
+      "projectName": "",
+      "clusterName": "sdfds",
+      "fdn": "",
+      "planName": "",
+      "networkPolicy": "",
+      "date": "11/4/2020",
+      "id": 5,
+      "status": "inprogress",
+      "dc1Id": 1
+    }
+  ]
+}
