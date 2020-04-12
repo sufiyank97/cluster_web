@@ -28,7 +28,8 @@ const CPP2 = ({ Dcs, envs, sh }) => {
         }
         catch (err) {
 
-            window.alert(err)
+            console.log(err)
+            console.log(res.data)
             console.log('11')
         }
     }
