@@ -54,7 +54,7 @@ const ClusterForm1 = ({ id, handleClose, Dcs, envs }) => {
             updateData()
         } else {
             data1.role = data1.role.split(';')
-
+            console.log(clusters)
             clusters.map(c1 => {
                 if (c1.name === "cs1") {
                     data1.cluster = c1._id
