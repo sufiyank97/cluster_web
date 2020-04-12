@@ -2,13 +2,13 @@ const HostModel = require('../models/hostName')
 var clustercs1 = new HostModel(
     {
         dc: 'dc1',
-        name: 'dc1 host Name',
+        hostName: 'dc1 host Name',
 
     })
 var clustercs2 = new HostModel(
     {
         dc: 'dc2',
-        name: 'dc2 host Name',
+        hostName: 'dc2 host Name',
 
     })
 clustercs1.save()
