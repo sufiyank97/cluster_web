@@ -6,7 +6,7 @@ import swal from 'sweetalert'
 import CPP1 from './Pages/CP1/cpp1'
 import Admin from './Pages/CP1/admin'
 import { Modal, Button } from 'react-bootstrap'
-const Home = () => {
+const Home = (props) => {
     const [show, setShow] = useState(false)
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
@@ -31,10 +31,12 @@ const Home = () => {
             getData({})
         }
         logOut()
+        props.history.push('/')
     }
     const handleReset = () => {
         if (!localStorage.getItem('token')) {
             swal('Error!', 'Login the Page', 'warning')
+            props.history.push('/')
         }
     }
     return (
