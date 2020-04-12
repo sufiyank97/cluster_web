@@ -17,13 +17,15 @@ const CPP2 = ({ Dcs, envs, sh }) => {
         const res = await axios.get('/platform/v1/deploy')
         try {
             const data = res.data
-            console.log(data)
+            console.log(data, 'data')
             const values = data.filter(d1 =>
                 d1.cluster.name === "cs-1"
             )
-            let dc1 = values.filter(dc1 =>
+            console.log(values)
+            let dc1 = data.filter(dc1 =>
                 dc1.dc === Dcs
             )
+            console.log(dc1)
             getDc1Data(dc1)
         }
         catch (err) {
@@ -33,7 +35,7 @@ const CPP2 = ({ Dcs, envs, sh }) => {
             console.log('11')
         }
     }
-
+    console.log(dc1Data, 'DC1DATA')
     useEffect(
         () => {
             callCp1()
