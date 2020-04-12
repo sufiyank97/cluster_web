@@ -54,7 +54,7 @@ const ClusterForm1 = ({ id, handleClose, Dcs, envs }) => {
             updateData()
         } else {
             data1.role = data1.role.split(';')
-            var newCluster;
+
             clusters.map(c1 => {
                 if (c1.name === "cs1") {
                     data1.cluster = c1._id
@@ -65,6 +65,7 @@ const ClusterForm1 = ({ id, handleClose, Dcs, envs }) => {
             const addData = async () => {
                 const res = await axios.post(`/platform/v1/deploy`, data1)
                 try {
+                    console.log(res.data, 'dddddddddddddddd')
                     handleClose()
                 } catch (err) {
                     console.log(err)
@@ -124,7 +125,7 @@ const ClusterForm1 = ({ id, handleClose, Dcs, envs }) => {
                         <label htmlFor="planName" >Plan Name:</label>
                         <div className="col-sm-4" style={{ marginLeft: '18px' }}>
                             <select id="planName" name="planName"
-                                ref={register} defaultValue={(data.planName) ? data.planName.name : ''} className="form-control">
+                                ref={register({ required: true })} defaultValue={(data.planName) ? data.planName.name : ''} className="form-control">
                                 {(data.planName) ? (
                                     <option value={data.planName._id}>{data.planName.name}</option>
                                 ) : (
@@ -148,7 +149,7 @@ const ClusterForm1 = ({ id, handleClose, Dcs, envs }) => {
                         <label htmlFor="networkPolicy" >Network Policy:</label>
                         <div className="col-sm-4" style={{ marginLeft: '-8px' }}>
                             <select id="networkPolicy" name="networkPolicy"
-                                ref={register} defaultValue={(data.networkPolicy) ? data.networkPolicy.name : ''} className="form-control">
+                                ref={register({ required: true })} defaultValue={(data.networkPolicy) ? data.networkPolicy.name : ''} className="form-control">
                                 {(data.networkPolicy) ? (
                                     <option value={data.networkPolicy._id}>{data.networkPolicy.name}</option>
                                 ) : (
