@@ -21,11 +21,7 @@ const ClusterForm1 = ({ id, handleClose, Dcs, envs }) => {
                 const res2 = await axios.get('/platform/v1/network_policy')
                 const res3 = await axios.get(`/platform/v1/cluster_list`)
                 try {
-                    console.log('nnnnnnnnnnnnnnnnnnnnnnnn')
-                    console.log(res)
-                    console.log(res1)
-                    console.log(res2)
-                    console.log(res3)
+
                     getData(res.data)
                     getPlanName(res1.data)
                     getNetworkPolicy(res2.data)
@@ -61,7 +57,7 @@ const ClusterForm1 = ({ id, handleClose, Dcs, envs }) => {
             data1.role = data1.role.split(';')
             console.log(clusters)
             clusters.map(c1 => {
-                if (c1.name === "cs1") {
+                if (c1.name === "cs-1") {
                     data1.cluster = c1._id
                     // newCluster += c1._id
                 }
@@ -70,7 +66,7 @@ const ClusterForm1 = ({ id, handleClose, Dcs, envs }) => {
             const addData = async () => {
                 const res = await axios.post(`/platform/v1/deploy`, data1)
                 try {
-                    console.log(res.data, 'dddddddddddddddd')
+
                     handleClose()
                 } catch (err) {
                     console.log(err)
