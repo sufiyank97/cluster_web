@@ -46,7 +46,6 @@ const ClusterForm1 = ({ id, handleClose, Dcs, envs }) => {
                 const res = await axios.put(`/platform/v1/deploy/${id}`, data1)
                 const res1 = await axios.put(`/platform/v1/cluster_list/${clusterData._id}`, clusterData)
                 try {
-
                     handleClose()
                 } catch (err) {
                     console.log(err)
@@ -62,6 +61,7 @@ const ClusterForm1 = ({ id, handleClose, Dcs, envs }) => {
                     // newCluster += c1._id
                 }
             })
+            console.log(data1)
             const addData = async () => {
                 const res = await axios.post(`/platform/v1/deploy`, data1)
                 try {
