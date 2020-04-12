@@ -40,10 +40,10 @@ const Home = () => {
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div className="navbar-nav ">
 
-                            <NavLink to="/cp1" activeClassName="active" className="navlink">CP1</NavLink>
-                            <NavLink to="/cp2" activeClassName="active" className="navlink">CP2</NavLink>
-                            <NavLink to="/cp3" activeClassName="active" className="navlink">CP3</NavLink>
-                            <NavLink to="/admin" activeClassName="active" className="navlink">Admin</NavLink>
+                            <NavLink to="/cp1" activeClassName="active1" className="navlink">CP1</NavLink>
+                            <NavLink to="/cp2" activeClassName="active1" className="navlink">CP2</NavLink>
+                            <NavLink to="/cp3" activeClassName="active1" className="navlink">CP3</NavLink>
+                            <NavLink to="/admin" activeClassName="active1" className="navlink">Admin</NavLink>
 
                         </div>
                         {
