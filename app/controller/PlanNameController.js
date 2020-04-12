@@ -6,12 +6,12 @@ var clustercs1 = new PlanName(
         name: 'network 1',
 
     })
-var clustercs1 = new PlanName(
+var clustercs2 = new PlanName(
     {
         name: 'network 2',
 
     })
-var clustercs1 = new PlanName(
+var clustercs3 = new PlanName(
     {
         name: 'network 3',
 

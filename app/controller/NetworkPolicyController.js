@@ -4,12 +4,12 @@ var clustercs1 = new NetworkPolicy(
         name: 'small',
 
     })
-var clustercs1 = new NetworkPolicy(
+var clustercs2 = new NetworkPolicy(
     {
         name: 'large',
 
     })
-var clustercs1 = new NetworkPolicy(
+var clustercs3 = new NetworkPolicy(
     {
         name: 'large1',
 
