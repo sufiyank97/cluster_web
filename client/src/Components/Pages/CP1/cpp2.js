@@ -17,6 +17,7 @@ const CPP2 = ({ Dcs, envs, sh }) => {
         const res = await axios.get('/platform/v1/deploy')
         try {
             const data = res.data
+            console.log(data)
             const values = data.filter(d1 =>
                 d1.cluster.name === "cs1"
             )
@@ -26,7 +27,9 @@ const CPP2 = ({ Dcs, envs, sh }) => {
             getDc1Data(dc1)
         }
         catch (err) {
+
             window.alert(err)
+            console.log('11')
         }
     }
 
