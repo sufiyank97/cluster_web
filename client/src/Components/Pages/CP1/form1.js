@@ -58,11 +58,12 @@ const ClusterForm1 = ({ id, handleClose, Dcs, envs }) => {
             console.log(clusters)
             clusters.map(c1 => {
                 if (c1.name === "cs-1") {
+                    console.log(c1.name, '  dfdsf ', c1._id)
                     data1.cluster = c1._id
                     // newCluster += c1._id
+                    console.log(data1)
                 }
             })
-            console.log(data1)
             const addData = async () => {
                 const res = await axios.post(`/platform/v1/deploy`, data1)
                 try {
