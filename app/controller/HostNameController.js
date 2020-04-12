@@ -1,6 +1,19 @@
 const HostModel = require('../models/hostName')
+var clustercs1 = new HostModel(
+    {
+        dc: 'dc1',
+        name: 'dc1 host Name',
 
+    })
+var clustercs1 = new HostModel(
+    {
+        dc: 'dc2',
+        name: 'dc2 host Name',
 
+    })
+clustercs1.save()
+clustercs2.save()
+clustercs3.save()
 module.exports.list = (req, res) => {
     HostModel.find()
         .then(clusters => res.json(clusters))

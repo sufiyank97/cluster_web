@@ -1,7 +1,25 @@
 const PlanName = require('../models/PlanName')
 
 
+var clustercs1 = new PlanName(
+    {
+        name: 'network 1',
 
+    })
+var clustercs1 = new PlanName(
+    {
+        name: 'network 2',
+
+    })
+var clustercs1 = new PlanName(
+    {
+        name: 'network 3',
+
+    })
+
+clustercs1.save()
+clustercs2.save()
+clustercs3.save()
 module.exports.list = (req, res) => {
     PlanName.find()
         .then(plans => res.json(plans))
