@@ -24,7 +24,7 @@ const ClusterForm1 = ({ id, handleClose, Dcs, envs }) => {
                     getPlanName(res1.data)
                     getNetworkPolicy(res2.data)
                 } catch (err) {
-                    window.alert(err)
+                    console.log(err
                 }
             }
             console.log('s')
@@ -47,7 +47,7 @@ const ClusterForm1 = ({ id, handleClose, Dcs, envs }) => {
 
                     handleClose()
                 } catch (err) {
-                    window.alert(err)
+                    console.log(err
                 }
             }
             updateData()
@@ -59,7 +59,7 @@ const ClusterForm1 = ({ id, handleClose, Dcs, envs }) => {
                 try {
                     handleClose()
                 } catch (err) {
-                    window.alert(err)
+                    console.log(err
                 }
             }
             addData()
