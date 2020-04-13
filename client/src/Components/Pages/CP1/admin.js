@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import './admin.css'
-import { Nav, Modal } from 'react-bootstrap'
+import { Modal } from 'react-bootstrap'
 import axios from '../../../config/axios'
 export const AdminForm = () => {
     const [host, getHostName] = useState([])
@@ -10,9 +10,9 @@ export const AdminForm = () => {
     const inpp = useRef('')
 
 
-    console.log(host)
+    //hostData get API
     const getData = async () => {
-        console.log('ddsf')
+
         const res = await axios.get('/admin/hostname')
         try {
 
@@ -27,6 +27,7 @@ export const AdminForm = () => {
             getData()
         }, []
     )
+    //update the record
     const handleClose = (id, dc) => {
 
         const updateData = async (id, dc) => {
@@ -34,21 +35,19 @@ export const AdminForm = () => {
 
             const res = await axios.put(`/admin/hostname/${id}`, data)
             try {
-                console.log(res.data)
-
+                if (res.data) {
+                    getHostName([])
+                    getData()
+                }
             } catch (err) {
                 window.alert(err)
             }
         }
-        getShow(false)
         updateData(id, dc)
-        getHostName([])
-        getData()
-        console.log(inpp.current.value)
-
+        getShow(false)
     }
+    //show the modal box
     const handleShow = (id) => {
-
         getId(id)
         getShow(true)
 
@@ -61,7 +60,7 @@ export const AdminForm = () => {
                 return (
                     <React.Fragment key={h1._id}>
                         <div>
-                            <h2 style={{ marginLeft: '-22em', marginTop: '1em', color: 'black' }}>{h1.dc.toUpperCase()}</h2>
+                            <h2 style={{ marginLeft: '1em', marginTop: '1em', color: 'black' }}>{h1.dc.toUpperCase()}</h2>
                             <hr style={{
                                 width: '12%',
                                 marginLeft: '1em', borderColor: '#ebc354'
@@ -72,10 +71,10 @@ export const AdminForm = () => {
                                 <label htmlFor={h1.hostName} style={{ color: 'black' }}>Host Name:</label>
                                 <div className="col-sm-2">
                                     <input type="text" id={h1.hostName} name="hostName" defaultValue={h1.hostName}
-                                        className="form-control" />
+                                        className="form-control" style={{ width: '10em' }} />
                                 </div>
                                 <div className="col-sm-6">
-                                    <button class="bbb btn btn-primary" onClick={() => { handleShow(h1._id) }}>Edit</button>
+                                    <button className="bbb btn btn-primary" onClick={() => { handleShow(h1._id) }} style={{ marginTop: '0em' }}> Edit</button>
                                 </div>
                             </div>
                         </div>
@@ -85,38 +84,36 @@ export const AdminForm = () => {
 
             }
 
-            {/* <div className="row justify-content-center">
-                <button style={{ marginLeft: '-9em' }} className="btn btn-primary" >Submit</button>
-            </div> */}
+
             <Modal show={show} onHide={() => { getShow(false) }} dialogClassName="modal-90w" centered>
                 <Modal.Header closeButton>
                 </Modal.Header>
                 <Modal.Body>
                     {
-                        host.map(h1 => {
+                        host.filter(f1 =>
+                            f1._id === fakeId
+                        ).map(h1 => {
+                            return (
+                                <React.Fragment key={h1._id}>
+                                    <div className="form-group row justify-content-center" style={{
+                                        marginLeft: '-11em',
+                                        marginTop: '1em'
+                                    }}>
+                                        <label htmlFor="projectName" >Project Name:</label>
+                                        <div className="col-sm-2">
+                                            <input type="text" name="pro" defaultValue={h1.hostName}
+                                                className="form-control" ref={inpp} style={{ width: '10em' }} />
+                                        </div>
+                                    </div>
+                                    <div style={{
+                                        marginLeft: '12em',
+                                        marginTop: '4em'
+                                    }}>
+                                        <button className="btn btn-primary" onClick={() => handleClose(h1._id, h1.dc)}>close</button>
+                                    </div>
+                                </React.Fragment>
+                            )
 
-                            if (h1._id === fakeId) {
-                                return (
-                                    <React.Fragment key={h1._id}>
-                                        <div className="form-group row justify-content-center" style={{
-                                            marginLeft: '-11em',
-                                            marginTop: '1em'
-                                        }}>
-                                            <label htmlFor="projectName" >Project Name:</label>
-                                            <div className="col-sm-2">
-                                                <input type="text" name="pro" defaultValue={h1.hostName}
-                                                    className="form-control" ref={inpp} />
-                                            </div>
-                                        </div>
-                                        <div style={{
-                                            marginLeft: '12em',
-                                            marginTop: '4em'
-                                        }}>
-                                            <button className="btn btn-primary" onClick={() => handleClose(h1._id, h1.dc)}>close</button>
-                                        </div>
-                                    </React.Fragment>
-                                )
-                            }
                         })
                     }
 
@@ -129,20 +126,20 @@ export const AdminForm = () => {
 const Admin = () => {
     return (
         <div className="container">
-            <div class="row d-flex justify-content-center" style={{ marginTop: '8em' }}>
-                <div class="col-3">
-                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link admm active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">CP1</a>
-                        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">CP2</a>
-                        <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">CP3</a>
+            <div className="row d-flex justify-content-center" style={{ marginTop: '8em' }}>
+                <div className="col-3">
+                    <div className="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a className="nav-link admm active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">CP1</a>
+                        <a className="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">CP2</a>
+                        <a className="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">CP3</a>
 
                     </div>
                 </div>
-                <div class="col-9">
-                    <div class="tab-content" id="v-pills-tabContent">
-                        <div class="tab-pane fade show admm active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" ><AdminForm /></div>
-                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">sdaskldadkasjnd</div>
-                        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
+                <div className="col-9">
+                    <div className="tab-content" id="v-pills-tabContent">
+                        <div className="tab-pane fade show admm active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" ><AdminForm /></div>
+                        <div className="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">sdaskldadkasjnd</div>
+                        <div className="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
 
                     </div>
                 </div>

@@ -30,3 +30,6 @@ a{
     /* border-bottom: 0.5px solid white; */
     margin-right: 1em;
 }
+.modal-header{
+    border-bottom: none;
+}

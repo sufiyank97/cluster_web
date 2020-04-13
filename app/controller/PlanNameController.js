@@ -3,33 +3,40 @@ const PlanName = require('../models/PlanName')
 
 var clustercs1 = new PlanName(
     {
-        name: 'network 1',
+        name: 'mini',
 
     })
 var clustercs2 = new PlanName(
     {
-        name: 'network 2',
+        name: 'small',
 
     })
 var clustercs3 = new PlanName(
     {
-        name: 'network 3',
-
+        name: 'large',
     })
 
-clustercs1.save()
-clustercs2.save()
-clustercs3.save()
-module.exports.list = (req, res) => {
-    PlanName.find()
-        .then(plans => res.json(plans))
-        .catch(err => res.json(err))
-}
 
-module.exports.create = (req, res) => {
-    const body = req.body
-    const plan = new PlanName(body)
-    plan.save()
-        .then(plans => res.json(plans))
+module.exports.list = (req, res) => {
+    const runn = () => {
+        PlanName.find()
+            .then(plans1 => res.json(plans1))
+            .catch(err => res.json(err))
+    }
+    PlanName.find()
+        .then(plans => {
+            if (plans.length === 0) {
+                console.log(clustercs1)
+                clustercs1.save()
+                clustercs2.save()
+                clustercs3.save()
+                setTimeout(() => {
+                    runn()
+                }, 1000)
+            } else {
+                res.json(plans)
+            }
+
+        })
         .catch(err => res.json(err))
 }

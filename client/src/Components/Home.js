@@ -1,60 +1,40 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './home.css'
 import { useForm } from 'react-hook-form'
-import { BrowserRouter, Link, Route, Switch, NavLink } from 'react-router-dom'
-import swal from 'sweetalert'
+import { , Link, Route, NavLink } from 'react-router-dom'
+
 import CPP1 from './Pages/CP1/cpp1'
 import Admin from './Pages/CP1/admin'
-import { Modal, Button } from 'react-bootstrap'
-const Home = (props) => {
-    const [show, setShow] = useState(false)
-    const handleClose = () => setShow(false)
-    const handleShow = () => setShow(true)
-    const { handleSubmit, register } = useForm()
-    const [userData, getData] = useState({})
-    const onSubmit = (data1, e) => {
-        const runFun = async () => {
 
-            if (data1.userName === "admin" && data1.pwd === "admin") {
-                getData(data1)
-                localStorage.setItem('token', 'login')
-                handleClose()
-            } else {
-                window.alert('incorrct User')
-            }
-        }
-        runFun()
-    }
+import Register from "./Register/Register";
+import Login from "./Login/login";
+import { connect } from "react-redux";
+import { startRemoveUser } from '../actions/user'
+const Home = (props) => {
+
     const handleLogout = () => {
-        const logOut = () => {
-            localStorage.removeItem('token')
-            getData({})
-        }
-        logOut()
-        props.history.push('/')
+        props.dispatch(startRemoveUser());
+        // history.push('/login')
     }
-    const handleReset = () => {
-        if (!localStorage.getItem('token')) {
-            swal('Error!', 'Login the Page', 'warning')
-            props.history.push('/')
-        }
-    }
+    console.log(props)
+    console.log(history)
     return (
-        <BrowserRouter>
+        <Router history={browserHistory}>
+
             <React.Fragment>
                 <nav className="navbar navbar-expand-lg navbar-light py-4" style={{ boxShadow: '0 0.1rem 0.4rem rgba(0, 0, 0, 0.15)', backgroundColor: '#f4f4f4' }}>
                     <a className="navbar-brand" href="#">LOGO</a>
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div className="navbar-nav ">
 
-                            <NavLink to="/cp1" onClick={handleReset} activeClassName="active1" className="navlink">CP1</NavLink>
-                            <NavLink to="/cp2" onClick={handleReset} activeClassName="active1" className="navlink">CP2</NavLink>
-                            <NavLink to="/cp3" onClick={handleReset} activeClassName="active1" className="navlink">CP3</NavLink>
-                            <NavLink to="/admin" onClick={handleReset} activeClassName="active1" className="navlink">Admin</NavLink>
+                            <NavLink to="/cp1" activeClassName="active1" className="navlink">CP1</NavLink>
+                            <NavLink to="/cp2" activeClassName="active1" className="navlink">CP2</NavLink>
+                            <NavLink to="/cp3" activeClassName="active1" className="navlink">CP3</NavLink>
+                            <NavLink to="/admin" activeClassName="active1" className="navlink">Admin</NavLink>
 
                         </div>
                         {
-                            (localStorage.getItem('token') ? (
+                            (Object.keys(props.user).length !== 0 ? (
                                 <ul className="navbar-nav ml-auto nav-flex-icons">
                                     <li className="nav-item">
                                         <button className="btn btn-danger" onClick={handleLogout}>Log out</button>
@@ -63,51 +43,59 @@ const Home = (props) => {
                             ) : (
                                     <ul className="navbar-nav ml-auto nav-flex-icons">
                                         <li className="nav-item">
-                                            <button className="btn btn-primary" onClick={handleShow}>Login</button>
+                                            <Link to="/login"><button className="btn btn-primary" >
+                                                Login</button></Link>
                                         </li>
                                     </ul>
                                 ))
                         }
-
                     </div >
                 </nav >
-                {
-                    (localStorage.getItem('token') ? (
-                        <span></span>
-                    ) : (
-                            <div className="container">
-                                <div className="row justify-content-center align-items-center">
-                                    <table style={{ marginTop: '8em' }}>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <span>Tools</span>
-                                                </td>
-                                                <td>
-                                                    <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div >
-                            </div >
-                        ))}
-                {localStorage.getItem('token') ? (
-                    <Switch>
-                        <Route path="/cp1" component={CPP1} />
-                        <Route path="/admin" component={Admin} />
-                    </Switch>
-                ) : (
-                        <span></span>
-                    )
-                }
+                <div className="row justify-content-center align-items-center">
+                    <div className="container">
+                        <table style={{ marginTop: '8em' }}>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span>Tools</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div >
+                </div >
+            </React.Fragment >
+            <Route path="/cp1" component={CPP1} />
+            <Route path="/admin" component={Admin} />
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+        </Router >
+    )
+}
+const mapStatetoProps = state => {
+    return {
+        user: state.user
+    };
+};
+export default connect(mapStatetoProps)(Home)
 
-                <Modal show={show} onHide={handleClose} dialogClassName="modal-90w" centered>
+{/* <Modal show={show} onHide={handleClose} dialogClassName="modal-90w" centered>
                     <Modal.Header closeButton>
-
+                        <h3 style={{ marginLeft: '6.2em' }}>Login</h3>
                     </Modal.Header>
                     <Modal.Body>
-                        <div className="row justify-content-center mb-3">
+                        <Login handleClose={handleClose} />
+                    </Modal.Body>
+                </Modal>
+                <Modal show={show} onHide={handleClose1} dialogClassName="modal-90w" centered>
+                    <Modal.Header closeButton>
+                        <h3 style={{ marginLeft: '6.2em' }}>Register</h3>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Register />
+                    </Modal.Body>
+                </Modal> */}
+{/* <div className="row justify-content-center mb-3">
                             <h5 style={{ fontWeight: '700', borderBottom: '2px solid #ebc354' }}>LOGIN</h5>
                         </div>
                         <div className="row justify-content-center align-items-center">
@@ -131,12 +119,4 @@ const Home = (props) => {
                                     <Button type="submit" variant="warning" style={{ borderRadius: '25px', width: '40%', margin: 'auto' }}>Submit</Button>
                                 </div>
                             </form>
-                        </div>
-                    </Modal.Body>
-                </Modal>
-            </React.Fragment >
-        </BrowserRouter >
-    )
-}
-
-export default Home
+                        </div> */}

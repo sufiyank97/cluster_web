@@ -1,33 +1,40 @@
 const NetworkPolicy = require('../models/NetworkPolicy')
 var clustercs1 = new NetworkPolicy(
     {
-        name: 'small',
+        name: 'network 1',
 
     })
 var clustercs2 = new NetworkPolicy(
     {
-        name: 'large',
+        name: 'network 2',
 
     })
 var clustercs3 = new NetworkPolicy(
     {
-        name: 'large1',
+        name: 'network 3',
 
     })
 
-clustercs1.save()
-clustercs2.save()
-clustercs3.save()
+
 module.exports.list = (req, res) => {
+    const runn = () => {
+        NetworkPolicy.find()
+            .then(nwks => res.json(nwks))
+            .catch(err => res.json(err))
+    }
     NetworkPolicy.find()
-        .then(nwks => res.json(nwks))
+        .then(nwks => {
+            if (nwks.length === 0) {
+                clustercs1.save()
+                clustercs2.save()
+                clustercs3.save()
+                setTimeout(() => {
+                    runn()
+                }, 1000)
+            } else {
+                res.json(nwks)
+            }
+        })
         .catch(err => res.json(err))
 }
 
-module.exports.create = (req, res) => {
-    const body = req.body
-    const nwk = new NetworkPolicy(body)
-    nwk.save()
-        .then(nwks => res.json(nwks))
-        .catch(err => res.json(err))
-}

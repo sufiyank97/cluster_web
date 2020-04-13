@@ -2,11 +2,13 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const hostSchema = new Schema({
-    hostName: {
-        type: String
-    },
     dc: {
-        type: String
+        type: String,
+        required: true
+    },
+    hostName: {
+        type: String,
+        required: true
     }
 })
 

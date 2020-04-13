@@ -35,6 +35,10 @@ const clusterSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'DcDataModel',
         required: true
+    },
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
     }
 })
 autoIncrement.initialize(mongoose.connection);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import CPP2 from './cpp2'
 import './cp1.css'
 

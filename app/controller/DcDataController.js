@@ -17,13 +17,28 @@ const dcData4 = new DcDataModel({
     dc: "dc2",
     env: "production"
 })
-dcData1.save()
-dcData2.save()
-dcData3.save()
-dcData4.save()
+
 module.exports.list = (req, res) => {
+    const runn = () => {
+        DcDataModel.find()
+            .then(data => res.json(data))
+            .catch(err => res.json(err))
+    }
     DcDataModel.find()
-        .then(datas => res.json(datas))
+        .then(datas => {
+            if (datas.length === 0) {
+                dcData1.save()
+                dcData2.save()
+                dcData3.save()
+                dcData4.save()
+                setTimeout(() => {
+                    runn()
+                }, 1000)
+            } else {
+                res.json(datas)
+            }
+
+        })
         .catch(err => res.json(err))
 }
 
