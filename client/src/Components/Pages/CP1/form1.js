@@ -44,7 +44,7 @@ const ClusterForm1 = ({ handleClose, Dcs, envs }) => {
             }
         })
         const addData = async () => {
-            console.log(data1)
+
             const res = await axios.post(`/platform/v1/cluster_list`, data1, {
                 headers: {
                     "x-auth": localStorage.getItem("token")

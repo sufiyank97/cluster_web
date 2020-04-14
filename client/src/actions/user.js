@@ -50,7 +50,6 @@ export const startRemoveUser = () => {
             })
             .then(response => {
                 localStorage.removeItem("token");
-                console.log(response.data);
                 dispatch(removeUser());
             })
             .catch(err => {

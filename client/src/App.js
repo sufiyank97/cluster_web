@@ -17,7 +17,7 @@ function App(props) {
     props.dispatch(startRemoveUser());
     history.push('/login')
   }
-  console.log(props)
+  
 
   // to hide Tools tag when login or register URL
   useEffect(

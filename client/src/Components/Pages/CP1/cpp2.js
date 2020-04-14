@@ -32,7 +32,7 @@ const CPP2 = ({ Dcs, envs, sh }) => {
             getDcsData(dc1)
         }
         catch (err) {
-            console.log(err)
+            swal('Error!', err, 'error')
         }
     }
     //Get the Dcs Data
@@ -59,11 +59,11 @@ const CPP2 = ({ Dcs, envs, sh }) => {
                 if (res.errors) {
                     window.alert(res.errors)
                 } else {
-                    console.log(res.data)
+
                     getDcsData(dcsData.filter(d1 => d1._id !== id))
                 }
             } catch (err) {
-                console.log(err)
+                swal('Error!', err, 'error')
             }
         }
         swal({
@@ -106,7 +106,7 @@ const CPP2 = ({ Dcs, envs, sh }) => {
     }
     //Submit updated Data
     const onSubmit = (data) => {
-        console.log(updatedRecord)
+
         updatedRecord.clusterName = data.clusterName
         updatedRecord.networkPolicy = data.networkPolicy
         data.role.split(';').pop()
@@ -132,7 +132,7 @@ const CPP2 = ({ Dcs, envs, sh }) => {
                     callCp1()
                     handleCancel()
                 }
-                console.log(res.data)
+
             } catch (err) {
                 swal('Error!', err, 'error')
             }
