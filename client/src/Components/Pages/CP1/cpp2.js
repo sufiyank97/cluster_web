@@ -109,7 +109,8 @@ const CPP2 = ({ Dcs, envs, sh }) => {
         console.log(updatedRecord)
         updatedRecord.clusterName = data.clusterName
         updatedRecord.networkPolicy = data.networkPolicy
-        updatedRecord.role = data.role.split(';')
+        data.role.split(';').pop()
+        updatedRecord.role = data.role
         if ((data.status === 'created') || (data.status === "updated")) {
             updatedRecord.status = "updated"
         } else if ((data.status === "inprogress") && (updatedRecord.status === "inprogress")) {
@@ -118,7 +119,7 @@ const CPP2 = ({ Dcs, envs, sh }) => {
             updatedRecord.status = "inprogress"
         }
         const updateFunction = async () => {
-            console.log(updatedRecord)
+
             const res = await axios.put(`/platform/v1/cluster_list/${updatedRecord._id}`, updatedRecord, {
                 headers: {
                     "x-auth": localStorage.getItem("token")
@@ -167,7 +168,7 @@ const CPP2 = ({ Dcs, envs, sh }) => {
                                                 <label className="pro1 progress3">Created</label>
                                             ) :
                                                     (
-                                                        <label className="pro1 progress2">COMPLETED</label>
+                                                        <label className="pro1 progress2">Updated</label>
                                                     )}
                                         </td>
                                         <td>
@@ -195,13 +196,13 @@ const CPP2 = ({ Dcs, envs, sh }) => {
                                             {(updatedRecord.status === "inprogress") ? (
                                                 <>
                                                     <option value={updatedRecord.status}>{updatedRecord.status}</option>
-                                                    <option value="completed">completed</option>
+                                                    <option value="updated">updated</option>
                                                     <option value="created">created</option>
                                                 </>
                                             ) : (updatedRecord.status === "created") ? (
                                                 <>
                                                     <option value={updatedRecord.status}>{updatedRecord.status}</option>
-                                                    <option value="completed">completed</option>
+                                                    <option value="updated">updated</option>
                                                     <option value="inprogress">inprogress</option>
                                                 </>
                                             ) : (
@@ -219,7 +220,7 @@ const CPP2 = ({ Dcs, envs, sh }) => {
 
                                             <option value={updatedRecord.networkPolicy._id}>{updatedRecord.networkPolicy.name}</option>
                                             {
-                                                networkPolicy.map((n1, i) => {
+                                                networkPolicy.filter(n1 => n1._id !== updatedRecord.networkPolicy._id).map((n1, i) => {
                                                     return (
                                                         <option key={i + 1} value={n1._id}>{n1.name}</option>
                                                     )
@@ -228,7 +229,7 @@ const CPP2 = ({ Dcs, envs, sh }) => {
                                         </select>
                                     </td>
                                     <td>
-                                        <textarea rows="2" id="role" name="role" defaultValue={updatedRecord.role.join(';')}
+                                        <textarea rows="2" id="role" name="role" defaultValue={updatedRecord.role}
                                             ref={register({ required: true })} className="form-control" />
                                     </td>
                                     <td>

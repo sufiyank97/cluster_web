@@ -35,8 +35,7 @@ const ClusterForm1 = ({ handleClose, Dcs, envs }) => {
 
     const onSubmit = (data1) => {
 
-
-        data1.role = data1.role.split(';').pop()
+        data1.role.split(';').pop()
         delete data1.dcName
         delete data1.env
         dcData.forEach(d1 => {
