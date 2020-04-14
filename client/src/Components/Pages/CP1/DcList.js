@@ -229,7 +229,7 @@ const DcList = ({ Dcs, envs, sh }) => {
                                         </select>
                                     </td>
                                     <td>
-                                        <textarea rows="2" id="role" name="role" defaultValue={updatedRecord.role}
+                                        <textarea rows="2" id="role" name="role" defaultValue={updatedRecord.role.join(';')}
                                             ref={register({ required: true })} className="form-control" />
                                     </td>
                                     <td>
