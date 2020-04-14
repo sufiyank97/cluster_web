@@ -105,12 +105,14 @@ const DcList = ({ Dcs, envs, sh }) => {
         getUpdated({})
     }
     //Submit updated Data
-    const onSubmit = (data) => {
 
+    const onSubmit = (data) => {
+        console.log(data)
         updatedRecord.clusterName = data.clusterName
         updatedRecord.networkPolicy = data.networkPolicy
         data.role.split(';').pop()
-        updatedRecord.role = data.role
+        updatedRecord.role = data.role.split(';')
+
         if ((data.status === 'created') || (data.status === "updated")) {
             updatedRecord.status = "updated"
         } else if ((data.status === "inprogress") && (updatedRecord.status === "inprogress")) {
