@@ -85,7 +85,7 @@ function App(props) {
         {
           (Object.keys(props.user).length !== 0 ? (
             <span></span>
-          ) : (<div className="row justify-content-center align-items-center" ref={hideTools}>
+          ) : (<div className="row justify-content-center align-items-center" style={{ width: '100%' }} ref={hideTools}>
             <div className="container">
               <table style={{ marginTop: '8em' }}>
                 <tbody>
