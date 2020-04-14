@@ -107,7 +107,7 @@ const DcList = ({ Dcs, envs, sh }) => {
     //Submit updated Data
 
     const onSubmit = (data) => {
-        console.log(data)
+
         updatedRecord.clusterName = data.clusterName
         updatedRecord.networkPolicy = data.networkPolicy
         data.role.split(';').pop()
