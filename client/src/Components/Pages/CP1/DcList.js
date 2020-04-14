@@ -5,7 +5,7 @@ import axios from '../../../config/axios'
 import swal from 'sweetalert';
 import ClusterForm1 from './form1'
 import { useForm } from 'react-hook-form'
-const CPP2 = ({ Dcs, envs, sh }) => {
+const DcList = ({ Dcs, envs, sh }) => {
     const [dcsData, getDcsData] = useState([])
 
     const [networkPolicy, getNetworkPolicy] = useState([])
@@ -265,4 +265,4 @@ const CPP2 = ({ Dcs, envs, sh }) => {
 
     )
 }
-export default CPP2
+export default DcList

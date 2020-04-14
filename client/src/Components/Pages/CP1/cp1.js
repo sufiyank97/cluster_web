@@ -1,8 +1,8 @@
 import React from 'react'
-import CPP2 from './cpp2'
+import DcList from './DcList'
 import './cp1.css'
 
-const CPP1 = () => {
+const CP1 = () => {
 
 
     return (
@@ -11,9 +11,9 @@ const CPP1 = () => {
                 <h4 style={{ paddingTop: '2em' }}>DC1</h4>
                 <div className="container">
                     <h4>Development</h4>
-                    <CPP2 Dcs="dc1" envs="development" />
+                    <DcList Dcs="dc1" envs="development" />
                     <h4>Production</h4>
-                    <CPP2 Dcs="dc1" envs="production" />
+                    <DcList Dcs="dc1" envs="production" />
                 </div>
             </div >
 
@@ -21,12 +21,12 @@ const CPP1 = () => {
                 <h4 style={{ paddingTop: '2em' }}>DC2</h4>
                 <div className="container">
                     <h4>Development</h4>
-                    <CPP2 Dcs="dc2" envs="development" />
+                    <DcList Dcs="dc2" envs="development" />
                     <h4>Production</h4>
-                    <CPP2 Dcs="dc2" envs="production" />
+                    <DcList Dcs="dc2" envs="production" />
                 </div>
             </div>
         </div >
     )
 }
-export default CPP1
+export default CP1

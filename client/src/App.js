@@ -3,7 +3,7 @@ import './App.css'
 
 import { Router, Link, Route, NavLink } from 'react-router-dom'
 import { createHashHistory } from 'history'
-import CPP1 from './Components/Pages/CP1/cpp1'
+import CP1 from './Components/Pages/CP1/cp1'
 import Admin from './Components/Pages/CP1/admin'
 
 import Register from "./Components/Register/Register";
@@ -17,7 +17,7 @@ function App(props) {
     props.dispatch(startRemoveUser());
     history.push('/login')
   }
-  
+
 
   // to hide Tools tag when login or register URL
   useEffect(
@@ -104,9 +104,8 @@ function App(props) {
       {(Object.keys(props.user).length !== 0 ?
         (
           <>
-            <Route path="/cp1" component={CPP1} />
+            <Route path="/cp1" component={CP1} />
             <Route path="/admin" component={Admin} />
-
           </>
         ) : (
           <>
