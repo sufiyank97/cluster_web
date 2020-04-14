@@ -18,10 +18,10 @@ a{
  
 }
 .active1{
+  color:#ebc354 !important;
   text-decoration: none ;
   border-bottom: 0.5px solid #ebc354 ;
   padding-bottom: 0.4em ;
-  color:#ebc354;
 }
 .active1:hover{
   text-decoration: none !important;

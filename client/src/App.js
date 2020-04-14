@@ -17,6 +17,7 @@ function App(props) {
     props.dispatch(startRemoveUser());
     history.push('/login')
   }
+  console.log(props)
 
   // to hide Tools tag when login or register URL
   useEffect(
@@ -52,29 +53,17 @@ function App(props) {
         <nav className="navbar navbar-expand-lg navbar-light py-4" style={{ boxShadow: '0 0.1rem 0.4rem rgba(0, 0, 0, 0.15)', backgroundColor: '#f4f4f4' }}>
           <a className="navbar-brand" href="#logo">LOGO</a>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-
-            {
-              (Object.keys(props.user).length !== 0 ? Object.keys(props.user.username) === "admin" ? (
-                <div className="navbar-nav ">
-                  <NavLink to="/cp1" activeClassName="active1" className="navlink" style={{ color: 'black' }} onClick={handleCheck}>CP1</NavLink>
-                  <NavLink to="/cp2" activeClassName="active1" className="navlink" style={{ color: 'black' }} onClick={handleCheck}>CP2</NavLink>
-                  <NavLink to="/cp3" activeClassName="active1" style={{ color: 'black' }} className="navlink" onClick={handleCheck}>CP3</NavLink>
+            <div className="navbar-nav ">
+              <NavLink to="/cp1" activeClassName="active1" className="navlink" style={{ color: 'black' }} onClick={handleCheck}>CP1</NavLink>
+              <NavLink to="/cp2" activeClassName="active1" className="navlink" style={{ color: 'black' }} onClick={handleCheck}>CP2</NavLink>
+              <NavLink to="/cp3" activeClassName="active1" style={{ color: 'black' }} className="navlink" onClick={handleCheck}>CP3</NavLink>
+              {
+                (Object.keys(props.user).length !== 0 ? props.user.username === "admin" ? (
                   <NavLink to="/admin" activeClassName="active1" style={{ color: 'black' }} className="navlink" >Admin</NavLink>
-                </div>
-              ) : (
-                  <div className="navbar-nav ">
-                    <NavLink to="/cp1" activeClassName="active1" className="navlink" style={{ color: 'black' }} onClick={handleCheck}>CP1</NavLink>
-                    <NavLink to="/cp2" activeClassName="active1" className="navlink" style={{ color: 'black' }} onClick={handleCheck}>CP2</NavLink>
-                    <NavLink to="/cp3" activeClassName="active1" style={{ color: 'black' }} className="navlink" onClick={handleCheck}>CP3</NavLink>
-                  </div>
-                ) : (
-                  <div className="navbar-nav ">
-                    <NavLink to="/cp1" activeClassName="active1" className="navlink" style={{ color: 'black' }} onClick={handleCheck}>CP1</NavLink>
-                    <NavLink to="/cp2" activeClassName="active1" className="navlink" style={{ color: 'black' }} onClick={handleCheck}>CP2</NavLink>
-                    <NavLink to="/cp3" activeClassName="active1" style={{ color: 'black' }} className="navlink" onClick={handleCheck}>CP3</NavLink>
-                  </div>
-                ))
-            }
+                ) : (<NavLink to=""></NavLink>) : (<NavLink to=""></NavLink>)
+                )
+              }
+            </div>
             {
               (Object.keys(props.user).length !== 0 ? (
                 <ul className="navbar-nav ml-auto nav-flex-icons">
@@ -125,7 +114,8 @@ function App(props) {
             <Route path="/register" component={Register} />
           </>
         )
-      )}
+      )
+      }
     </Router >
 
   );
