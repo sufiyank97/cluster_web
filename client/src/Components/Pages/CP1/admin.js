@@ -78,7 +78,7 @@ export const AdminForm = () => {
                                         <div className="form-group row" style={{ marginLeft: '8em' }}>
                                             <label htmlFor={d1.dc + d1.env + i} style={{ color: 'black' }}>Host Name:</label>
                                             <div className="col-sm-8">
-                                                <input type="text" id={d1.dc + d1.env + i} name="hostName" defaultValue={d1.hostName}
+                                                <input type="text" id={d1.dc + d1.env + i} readOnly name="hostName" defaultValue={d1.hostName}
                                                     className="form-control" style={{ width: '20em' }} />
                                             </div>
 
@@ -87,7 +87,7 @@ export const AdminForm = () => {
                                         <div className="form-group row" style={{ marginLeft: '8em' }}>
                                             <label htmlFor={d1.dc + d1.env + i + 1} style={{ color: 'black' }}>Certificate:</label>
                                             <div className="col-sm-8" style={{ marginLeft: '0.7em' }}>
-                                                <textarea row="2" id={d1.dc + d1.env + i + 1} name="certificate" defaultValue={d1.certificate}
+                                                <textarea row="2" id={d1.dc + d1.env + i + 1} readOnly name="certificate" defaultValue={d1.certificate}
                                                     className="form-control" style={{ width: '20em' }} />
                                             </div>
 
@@ -115,7 +115,7 @@ export const AdminForm = () => {
                                         <div className="form-group row" style={{ marginLeft: '8em' }}>
                                             <label htmlFor={d1.dc + d1.env + i} style={{ color: 'black' }}>Host Name:</label>
                                             <div className="col-sm-8">
-                                                <input type="text" id={d1.dc + d1.env + i} name="hostName" defaultValue={d1.hostName}
+                                                <input type="text" id={d1.dc + d1.env + i} readOnly name="hostName" defaultValue={d1.hostName}
                                                     className="form-control" style={{ width: '20em' }} />
                                             </div>
 
@@ -124,7 +124,7 @@ export const AdminForm = () => {
                                         <div className="form-group row" style={{ marginLeft: '8em' }}>
                                             <label htmlFor={d1.dc + d1.env + i + 1} style={{ color: 'black' }}>Certificate:</label>
                                             <div className="col-sm-8" style={{ marginLeft: '0.7em' }}>
-                                                <textarea row="2" id={d1.dc + d1.env + i + 1} name="certificate" defaultValue={d1.certificate}
+                                                <textarea row="2" id={d1.dc + d1.env + i + 1} readOnly name="certificate" defaultValue={d1.certificate}
                                                     className="form-control" style={{ width: '20em' }} />
                                             </div>
 
