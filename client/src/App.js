@@ -6,13 +6,16 @@ import { createHashHistory } from 'history'
 import CP1 from './Components/Pages/CP1/cp1'
 import Admin from './Components/Pages/CP1/admin'
 
-import Register from "./Components/Register/Register";
+
 import Login from "./Components/Login/login";
 import { connect } from "react-redux";
 import { startRemoveUser } from './actions/user'
 
 function App(props) {
+
+
   const history = createHashHistory()
+  // Logout Function to call Redux Action
   const handleLogout = () => {
     props.dispatch(startRemoveUser());
     history.push('/login')
@@ -22,7 +25,7 @@ function App(props) {
   // to hide Tools tag when login or register URL
   useEffect(
     () => {
-      if ((history.location.pathname === "/login") || (history.location.pathname === "/register")) {
+      if (history.location.pathname === "/login") {
         if (Object.keys(props.user).length !== 0) {
           if (history.location.pathname)
             history.push('/cp1')
@@ -110,7 +113,6 @@ function App(props) {
         ) : (
           <>
             <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
           </>
         )
       )

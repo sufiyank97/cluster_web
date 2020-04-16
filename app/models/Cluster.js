@@ -31,6 +31,10 @@ const clusterSchema = new Schema({
     role: [
         String
     ],
+    noOfNodes: {
+        type: String,
+        required: true
+    },
     dcData: {
         type: Schema.Types.ObjectId,
         ref: 'DcDataModel',

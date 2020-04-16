@@ -5,30 +5,44 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './bootstrap.css'
 
+import Cookies from 'js-cookie'
+// import swal from 'sweetalert'
 import configureStore from "./store/configureStore";
 import { Provider } from "react-redux";
 import axios from "./config/axios";
-import { setUser } from "./actions/user";
+import { accountUser } from "./actions/user";
 const store = configureStore
 
-if (localStorage.getItem("token")) {
+
+// Get the Account Information
+if (Cookies.get("token")) {
   axios
     .get("/users/account", {
       headers: {
-        "x-auth": localStorage.getItem("token")
+        "x-auth": Cookies.get("token")
       }
     })
     .then(
       response => {
         if (response.data.errors) {
           window.alert(response.data);
+        } else {
+          const user = {
+            username: response.data.username,
+            email: response.data.email
+          };
+          store.dispatch(accountUser(user));
         }
-        const user = response.data;
-        store.dispatch(setUser(user));
       }
     )
     .catch(err => {
-      window.alert(err);
+      // if (Cookies.get('token')) {
+      // } else {
+      //   history.push('/login')
+      // }
+
+      // swal('Error!', err.toString(), 'error')
+      window.location.reload()
     });
 }
 ReactDOM.render(

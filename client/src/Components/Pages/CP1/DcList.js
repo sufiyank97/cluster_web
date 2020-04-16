@@ -4,22 +4,20 @@ import './cp1.css'
 import axios from '../../../config/axios'
 import swal from 'sweetalert';
 import ClusterForm1 from './form1'
-import { useForm } from 'react-hook-form'
-const DcList = ({ Dcs, envs, sh }) => {
+import Cookies from 'js-cookie'
+const DcList = ({ Dcs, envs, sh, history }) => {
     const [dcsData, getDcsData] = useState([])
-
-    const [networkPolicy, getNetworkPolicy] = useState([])
     const [show, setShow] = useState(false)
-    const [updatedRecord, getUpdated] = useState({})
-    const { handleSubmit, register } = useForm({})
+    const [fakeId, getId] = useState('')
 
 
 
+    // get the Dcs list Data and call the function in Use Effect after page Render
     const callCp1 = async () => {
 
         const res = await axios.get('/platform/v1/cluster_list', {
             headers: {
-                "x-auth": localStorage.getItem("token")
+                "x-auth": Cookies.get("token")
             }
         })
         try {
@@ -32,38 +30,41 @@ const DcList = ({ Dcs, envs, sh }) => {
             getDcsData(dc1)
         }
         catch (err) {
-            swal('Error!', err, 'error')
+            if (Cookies.get('token')) {
+                swal('Error!', err.toString(), 'error')
+            } else {
+                history.push('/login')
+            }
         }
     }
-    //Get the Dcs Data
+    //Call the Dcs Function in UseEffect
     useEffect(
         () => {
             callCp1()
         }, [Dcs, envs]
     )
-    //Close the Create Modal Box Form
-    const handleClose = () => {
-        setShow(false)
-        callCp1()
-    }
 
-    //Delete Record
+
+    //Delete Cluster Record
     const handleDelete = (id) => {
         const deleteData = async (id) => {
             const res = await axios.delete(`/platform/v1/cluster_list/${id}`, {
                 headers: {
-                    "x-auth": localStorage.getItem("token")
+                    "x-auth": Cookies.get('token')
                 }
             })
             try {
                 if (res.errors) {
-                    window.alert(res.errors)
+                    swal('Error!', res.errors.toString(), 'error')
                 } else {
-
                     getDcsData(dcsData.filter(d1 => d1._id !== id))
                 }
             } catch (err) {
-                swal('Error!', err, 'error')
+                if (Cookies.get('token')) {
+                    swal('Error!', err.toString(), 'error')
+                } else {
+                    history.push('/login')
+                }
             }
         }
         swal({
@@ -84,183 +85,78 @@ const DcList = ({ Dcs, envs, sh }) => {
                 }
             });
     }
-    //get the updated Record
-    const handleUpdate = async (Id) => {
-        const res = await axios.get(`/platform/v1/cluster_list/${Id}`, {
-            headers: {
-                "x-auth": localStorage.getItem("token")
-            }
-        })
-
-        const res2 = await axios.get('/platform/v1/network_policy')
-        try {
-            getUpdated(res.data)
-            getNetworkPolicy(res2.data)
-        } catch (err) {
-            swal('Error', err, 'error')
-        }
+    //get the updated Cluster Record to update
+    const handleUpdate = async (id) => {
+        getId(id)
+        setShow(true)
     }
-    //Cancel the updated form
-    const handleCancel = () => {
-        getUpdated({})
+
+    //Close the Create Modal Box Form to create Cluster
+    const handleClose = () => {
+        setShow(false)
+        callCp1()
+        getId('')
     }
-    //Submit updated Data
 
-    const onSubmit = (data) => {
-
-        updatedRecord.clusterName = data.clusterName
-        updatedRecord.networkPolicy = data.networkPolicy
-        data.role.split(';').pop()
-        updatedRecord.role = data.role.split(';')
-
-        if ((data.status === 'created') || (data.status === "updated")) {
-            updatedRecord.status = "updated"
-        } else if ((data.status === "inprogress") && (updatedRecord.status === "inprogress")) {
-            updatedRecord.status = "updated"
-        } else {
-            updatedRecord.status = "inprogress"
-        }
-        const updateFunction = async () => {
-
-            const res = await axios.put(`/platform/v1/cluster_list/${updatedRecord._id}`, updatedRecord, {
-                headers: {
-                    "x-auth": localStorage.getItem("token")
-                }
-            })
-            try {
-                if (res.error) {
-                    swal('error', res.error, 'error')
-                } else {
-                    callCp1()
-                    handleCancel()
-                }
-
-            } catch (err) {
-                swal('Error!', err, 'error')
-            }
-        }
-        updateFunction()
-    }
     return (
         <>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <table className="table" >
-                    <thead>
-                        <tr>
-                            <th>Sr No.</th>
-                            <th>Date Created</th>
-                            <th>Cluster Name</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
 
-                        {   // print all the Dcs data
-                            dcsData.map((d1, i) => {
-                                return (
-                                    <tr key={i + 1}>
-                                        <td>{i + 1}</td>
-                                        <td>{d1.createdAt.split('T')[0].split('-').reverse().join('-')}</td>
-                                        <td>{d1.clusterName}</td>
-                                        <td>
-                                            {(d1.status === "inprogress") ? (
-                                                <label className="pro1 progress1">INPROGRESS</label>
-                                            ) : (d1.status === "created") ? (
-                                                <label className="pro1 progress3">Created</label>
-                                            ) :
-                                                    (
-                                                        <label className="pro1 progress2">Updated</label>
-                                                    )}
-                                        </td>
-                                        <td>
-                                            <div className="btn-group" role="group" aria-label="Basic example">
-                                                <button type="button" className="btn btn-primary"
-                                                    onClick={() => handleUpdate(d1._id)}>Update</button>
-                                                <button type="button" className="btn btn-danger"
-                                                    onClick={() => handleDelete(d1._id)}>Delete</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                )
-                            }
-                            )
-                        }
-                        {   //Updated record form
-                            (updatedRecord._id) ? (
-                                <tr key={updatedRecord._id}>
-                                    <td>
-                                        <input className="form-control" name="clusterName" defaultValue={updatedRecord.clusterName} ref={register({ required: true })} />
-                                    </td>
-                                    <td>
-                                        <select id="status" name="status"
-                                            ref={register({ required: true })} defaultValue={updatedRecord.status} className="form-control">
-                                            {(updatedRecord.status === "inprogress") ? (
-                                                <>
-                                                    <option value={updatedRecord.status}>{updatedRecord.status}</option>
-                                                    <option value="updated">updated</option>
-                                                    <option value="created">created</option>
-                                                </>
-                                            ) : (updatedRecord.status === "created") ? (
-                                                <>
-                                                    <option value={updatedRecord.status}>{updatedRecord.status}</option>
-                                                    <option value="updated">updated</option>
-                                                    <option value="inprogress">inprogress</option>
-                                                </>
-                                            ) : (
-                                                        <>
-                                                            <option value={updatedRecord.status}>{updatedRecord.status}</option>
-                                                            <option value="created">created</option>
-                                                            <option value="inprogress">inprogress</option>
-                                                        </>
-                                                    )}
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select id="networkPolicy" name="networkPolicy"
-                                            ref={register({ required: true })} className="form-control">
+            <table className="table" >
+                <thead>
+                    <tr>
+                        <th>Sr No.</th>
+                        <th>Date Created</th>
+                        <th>Cluster Name</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-                                            <option value={updatedRecord.networkPolicy._id}>{updatedRecord.networkPolicy.name}</option>
-                                            {
-                                                networkPolicy.filter(n1 => n1._id !== updatedRecord.networkPolicy._id).map((n1, i) => {
-                                                    return (
-                                                        <option key={i + 1} value={n1._id}>{n1.name}</option>
-                                                    )
-                                                })
-                                            }
-                                        </select>
-                                    </td>
+                    {   // print all the Dcs data
+                        dcsData.map((d1, i) => {
+                            return (
+                                <tr key={i + 1}>
+                                    <td>{i + 1}</td>
+                                    <td>{d1.createdAt.split('T')[0].split('-').reverse().join('-')}</td>
+                                    <td>{d1.clusterName}</td>
                                     <td>
-                                        <textarea rows="2" id="role" name="role" defaultValue={updatedRecord.role.join(';')}
-                                            ref={register({ required: true })} className="form-control" />
+                                        {(d1.status === "inprogress") ? (
+                                            <label className="pro1 progress1">INPROGRESS</label>
+                                        ) : (d1.status === "created") ? (
+                                            <label className="pro1 progress3">Created</label>
+                                        ) :
+                                                (
+                                                    <label className="pro1 progress2">Updated</label>
+                                                )}
                                     </td>
                                     <td>
                                         <div className="btn-group" role="group" aria-label="Basic example">
-                                            <button className="btn btn-primary"
-                                                type="submit">Submit</button>
+                                            <button type="button" className="btn btn-primary"
+                                                onClick={() => handleUpdate(d1._id)}>Update</button>
                                             <button type="button" className="btn btn-danger"
-                                                onClick={() => handleCancel()}>Cancel</button>
+                                                onClick={() => handleDelete(d1._id)}>Delete</button>
                                         </div>
-
                                     </td>
                                 </tr>
-                            ) : (
-                                    <tr></tr>
-                                )
+                            )
                         }
-                    </tbody>
-                </table>
-            </form>
+                        )
+                    }
+                </tbody>
+            </table>
+
             <div style={{ marginLeft: '30em' }}>
                 <Button className="createCluster mb-2" variant="warning" onClick={() => setShow(true)}>
                     Create Cluster</Button>
             </div>
-            <Modal show={show} onHide={() => { setShow(false) }} size="lg" dialogClassName="modal-90w" centered>
+            {/* Modal Box to Show Cluster Development and Production Form */}
+            <Modal show={show} onHide={() => { setShow(false); getId('') }} size="lg" dialogClassName="modal-90w" centered>
                 <Modal.Header closeButton>
 
                 </Modal.Header>
                 <Modal.Body>
-                    <ClusterForm1 handleClose={handleClose} Dcs={Dcs} envs={envs} />
+                    <ClusterForm1 handleClose={handleClose} Dcs={Dcs} envs={envs} id={fakeId} />
                 </Modal.Body>
             </Modal>
         </ >
@@ -268,3 +164,68 @@ const DcList = ({ Dcs, envs, sh }) => {
     )
 }
 export default DcList
+
+
+
+// {   //Updated record form
+//     (updatedRecord._id) ? (
+//         <tr key={updatedRecord._id}>
+//             <td>
+//                 <input className="form-control" name="clusterName" defaultValue={updatedRecord.clusterName} ref={register({ required: true })} />
+//             </td>
+//             <td>
+//                 <select id="status" name="status"
+//                     ref={register({ required: true })} defaultValue={updatedRecord.status} className="form-control">
+//                     {(updatedRecord.status === "inprogress") ? (
+//                         <>
+//                             <option value={updatedRecord.status}>{updatedRecord.status}</option>
+//                             <option value="updated">updated</option>
+//                             <option value="created">created</option>
+//                         </>
+//                     ) : (updatedRecord.status === "created") ? (
+//                         <>
+//                             <option value={updatedRecord.status}>{updatedRecord.status}</option>
+//                             <option value="updated">updated</option>
+//                             <option value="inprogress">inprogress</option>
+//                         </>
+//                     ) : (
+//                                 <>
+//                                     <option value={updatedRecord.status}>{updatedRecord.status}</option>
+//                                     <option value="created">created</option>
+//                                     <option value="inprogress">inprogress</option>
+//                                 </>
+//                             )}
+//                 </select>
+//             </td>
+//             <td>
+//                 <select id="networkPolicy" name="networkPolicy"
+//                     ref={register({ required: true })} className="form-control">
+
+//                     <option value={updatedRecord.networkPolicy._id}>{updatedRecord.networkPolicy.name}</option>
+//                     {
+//                         networkPolicy.filter(n1 => n1._id !== updatedRecord.networkPolicy._id).map((n1, i) => {
+//                             return (
+//                                 <option key={i + 1} value={n1._id}>{n1.name}</option>
+//                             )
+//                         })
+//                     }
+//                 </select>
+//             </td>
+//             <td>
+//                 <textarea rows="2" id="role" name="role" defaultValue={updatedRecord.role.join(';')}
+//                     ref={register({ required: true })} className="form-control" />
+//             </td>
+//             <td>
+//                 <div className="btn-group" role="group" aria-label="Basic example">
+//                     <button className="btn btn-primary"
+//                         type="submit">Submit</button>
+//                     <button type="button" className="btn btn-danger"
+//                         onClick={() => handleCancel()}>Cancel</button>
+//                 </div>
+
+//             </td>
+//         </tr>
+//     ) : (
+//             <tr></tr>
+//         )
+// }

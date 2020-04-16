@@ -1,4 +1,5 @@
 import axios from "../config/axios";
+import Cookies from 'js-cookie'
 export const setUser = user => {
     return {
         type: "SET_USER",
@@ -22,6 +23,7 @@ export const removeUser = () => {
         type: "REMOVE_USER"
     };
 };
+// Login User
 export const startSetUser = formData => {
     return dispatch => {
         axios
@@ -30,7 +32,9 @@ export const startSetUser = formData => {
                 if (response.data.errors) {
                     window.alert(response.data.errors);
                 } else {
-                    localStorage.setItem("token", response.data.token);
+
+                    // var date = new Date(new Date().getTime() + 2 * 60 * 1000);
+                    Cookies.set("token", response.data.token, { expires: 1 / 24, path: '/' })
                     dispatch(setUser(response.data.user));
                 }
             })
@@ -39,43 +43,21 @@ export const startSetUser = formData => {
             });
     };
 };
-
+// Logout User
 export const startRemoveUser = () => {
     return dispatch => {
         axios
             .delete("/users/logout", {
                 headers: {
-                    "x-auth": localStorage.getItem("token")
+                    "x-auth": Cookies.get("token")
                 }
             })
             .then(response => {
-                localStorage.removeItem("token");
+                Cookies.remove("token");
                 dispatch(removeUser());
             })
             .catch(err => {
                 window.alert(err);
-            });
-    };
-};
-
-export const startAccountUser = () => {
-    return dispatch => {
-        axios
-            .get("/users/account", {
-                headers: {
-                    "x-auth": localStorage.getItem("token")
-                }
-            })
-            .then(response => {
-                const user = {
-                    username: response.data.username,
-                    email: response.data.email
-                };
-                // console.log(response.data);
-                dispatch(accountUser(user));
-            })
-            .catch(err => {
-                window.log(err);
             });
     };
 };

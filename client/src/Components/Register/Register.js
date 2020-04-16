@@ -7,7 +7,7 @@ const Register = (props) => {
 
     const { handleSubmit, register } = useForm({})
 
-
+    // Submit the Register Data To Database
     const onSubmit = (data) => {
         if (data.password === data.password2) {
             delete data.password2

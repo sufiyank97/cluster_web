@@ -26,7 +26,6 @@ module.exports.login = function (req, res) {
         .then(function (userFound) {
             user = userFound
             return user.generateToken()
-
         })
         .then(function (token) {
 

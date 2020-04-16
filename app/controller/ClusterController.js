@@ -1,5 +1,8 @@
 const ClusterModel = require('../models/Cluster')
 
+// Create Api for Create,Update,Show and Delete
+
+
 module.exports.list = (req, res) => {
     ClusterModel.find({ userId: req.user._id }).populate('planName').populate('networkPolicy').populate('dcData')
         .then(clusters => res.json(clusters))

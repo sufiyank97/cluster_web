@@ -5,7 +5,7 @@ const NetworkPolicyController = require('../app/controller/NetworkPolicyControll
 const PlanNameController = require('../app/controller/PlanNameController')
 const ClusterController = require('../app/controller/ClusterController')
 const DcDataController = require('../app/controller/DcDataController')
-const HostNameController = require('../app/controller/HostNameController')
+
 const UsersController = require("../app/controller/UsersController");
 const { authenticateUser } = require("../app/middlewares/authentication");
 
@@ -15,8 +15,7 @@ router.put('/platform/v1/cluster_list/:id', authenticateUser, ClusterController.
 router.get('/platform/v1/cluster_list/:id', authenticateUser, ClusterController.show)
 router.delete('/platform/v1/cluster_list/:id', authenticateUser, ClusterController.delete)
 
-router.get('/admin/hostname', HostNameController.list)
-router.put('/admin/hostname/:id', HostNameController.update)
+
 
 
 router.get('/platform/v1/network_policy', NetworkPolicyController.list)

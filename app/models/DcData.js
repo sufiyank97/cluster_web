@@ -9,6 +9,12 @@ const dcDataSchema = new Schema({
     env: {
         type: String,
         required: true
+    },
+    hostName: {
+        type: String
+    },
+    certificate: {
+        type: String
     }
 })
 

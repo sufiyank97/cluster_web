@@ -79,7 +79,6 @@ userSchema.statics.findByCredentials = function (email, password) {
         })
         .catch(function (err) {
             return Promise.reject(err)
-
         })
 }
 

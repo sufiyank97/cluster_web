@@ -1,3 +1,4 @@
+// Reducers to update Users Data in Redux Object
 const userAuthReducer = (state = {}, action) => {
     switch (action.type) {
         case "SET_USER": {

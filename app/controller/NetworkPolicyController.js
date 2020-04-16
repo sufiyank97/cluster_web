@@ -1,4 +1,8 @@
 const NetworkPolicy = require('../models/NetworkPolicy')
+
+// Create Api for Create and List it
+
+// Predefined Values
 var clustercs1 = new NetworkPolicy(
     {
         name: 'network 1',

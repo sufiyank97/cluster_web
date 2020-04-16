@@ -1,21 +1,31 @@
 const DcDataModel = require('../models/DcData')
 
+// Create Api for Create,Update,Show and Delete
 
+// Predefined Values
 const dcData1 = new DcDataModel({
     dc: "dc1",
-    env: "development"
+    env: "development",
+    hostName: "host1 dc1_dev",
+    certificate: "certi1 dc1_dev"
 })
 const dcData2 = new DcDataModel({
     dc: "dc2",
-    env: "development"
+    env: "development",
+    hostName: "host2 dc2_dev",
+    certificate: "certi2 dc1_dev"
 })
 const dcData3 = new DcDataModel({
     dc: "dc1",
-    env: "production"
+    env: "production",
+    hostName: "host1 dc1_prod",
+    certificate: "certi1 dc1_prod"
 })
 const dcData4 = new DcDataModel({
     dc: "dc2",
-    env: "production"
+    env: "production",
+    hostName: "host2 dc1_prod",
+    certificate: "certi2 dc1_prod"
 })
 
 module.exports.list = (req, res) => {

@@ -1,5 +1,8 @@
 const PlanName = require('../models/PlanName')
 
+// Create Api for Create and List it
+
+// Predefined Values
 
 var clustercs1 = new PlanName(
     {
