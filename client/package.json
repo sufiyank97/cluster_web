@@ -16,6 +16,7 @@
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.0",
     "react-dom": "^16.13.1",
+    "react-facebook-login": "^4.1.1",
     "react-fontawesome": "^1.7.1",
     "react-history": "^0.18.2",
     "react-hook-form": "^5.3.1",

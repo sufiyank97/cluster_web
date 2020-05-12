@@ -30,7 +30,7 @@ function App(props) {
           if (history.location.pathname)
             history.push('/cp1')
         }
-        hideTools.current.style.display = "none"
+        // hideTools.current.style.display = "none"
       }
       return (() => {
         console.log('')
@@ -55,7 +55,7 @@ function App(props) {
 
       <React.Fragment>
         <nav className="navbar navbar-expand-lg navbar-light py-4" style={{ boxShadow: '0 0.1rem 0.4rem rgba(0, 0, 0, 0.15)', backgroundColor: '#f4f4f4' }}>
-          <a className="navbar-brand" href="#logo">LOGO</a>
+          <a className="navbar-brand" href="#logo" onClick={handleCheck}>LOGO</a>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav ">
               <NavLink to="/cp1" activeClassName="active1" className="navlink" style={{ color: 'black' }} onClick={handleCheck}>CP1</NavLink>
@@ -78,7 +78,7 @@ function App(props) {
               ) : (
                   <ul className="navbar-nav ml-auto nav-flex-icons">
                     <li className="nav-item">
-                      <Link to="/login" replace><Login /></Link>
+                      <Route path="/login" component={Login} />
                     </li>
                   </ul>
                 ))
@@ -104,18 +104,19 @@ function App(props) {
           )
         }
       </React.Fragment >
-      {(Object.keys(props.user).length !== 0 ?
-        (
-          <>
-            <Route path="/cp1" component={CP1} />
-            <Route path="/admin" component={Admin} />
-          </>
-        ) : (
-          <>
+      {
+        (Object.keys(props.user).length !== 0 ?
+          (
+            <>
+              <Route path="/cp1" component={CP1} />
+              <Route path="/admin" component={Admin} />
+            </>
+          ) : (
+            <>
 
-          </>
+            </>
+          )
         )
-      )
       }
     </Router >
 

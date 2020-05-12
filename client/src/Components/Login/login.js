@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { startSetUser } from "../../actions/user";
 import { connect } from "react-redux";
 import { useForm } from 'react-hook-form'
-
 import { Modal } from 'react-bootstrap'
 import './login.css'
+
+import { Link } from 'react-router-dom'
+import FacebookLogin from 'react-facebook-login'
 const Login = (props) => {
     const [show, setShow] = useState(false)
     const { handleSubmit, register } = useForm({})
@@ -14,19 +16,17 @@ const Login = (props) => {
         }, []
     )
     // Submit the Login Data to Redux Action
-
     const onSubmit = (data) => {
         props.dispatch(startSetUser(data))
         setShow(false)
         props.history.push("/");
-
     }
     return (
         <>
             <div>
 
-                <button className="btn btn-primary" onClick={() => setShow(true)}>
-                    Login1</button>
+                <Link to="/login" replace><button className="btn btn-primary" onClick={() => setShow(true)}>
+                    Login</button></Link>
             </div>
             <Modal show={show} onHide={() => setShow(false)} dialogClassName="modal-90w" centered>
                 <Modal.Header closeButton style={{ borderBottom: 'none' }}>
