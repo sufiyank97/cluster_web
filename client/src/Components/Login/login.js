@@ -14,7 +14,7 @@ const Login = (props) => {
         }, []
     )
     // Submit the Login Data to Redux Action
-    console.log(show)
+
     const onSubmit = (data) => {
         props.dispatch(startSetUser(data))
         setShow(false)
