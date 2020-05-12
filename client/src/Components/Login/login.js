@@ -19,14 +19,20 @@ const Login = (props) => {
     const onSubmit = (data) => {
         props.dispatch(startSetUser(data))
         setShow(false)
-        props.history.push("/");
+        // props.history.push("/");
+    };
+    const responseFacebook = (response) => {
+        console.log(response);
+    }
+    const componentClicked = data => {
+        console.log(data)
     }
     return (
         <>
             <div>
 
-                <Link to="/login" replace><button className="btn btn-primary" onClick={() => setShow(true)}>
-                    Login</button></Link>
+                <button className="btn btn-primary" onClick={() => setShow(true)}>
+                    Login</button>
             </div>
             <Modal show={show} onHide={() => setShow(false)} dialogClassName="modal-90w" centered>
                 <Modal.Header closeButton style={{ borderBottom: 'none' }}>
@@ -61,8 +67,18 @@ const Login = (props) => {
                                 <div className="col">
                                     <input type="submit" style={{ marginLeft: '3em' }} className="btn btn-primary" />
                                 </div>
-                            </div>
 
+                            </div>
+                            {/* <div className="row">
+                                <div className="col" style={{ paddingTop: '20px' }}>
+                                    <FacebookLogin
+                                        appId="289600912204604"
+                                        autoLoad={true}
+                                        fields="name,email,picture"
+                                        onClick={componentClicked}
+                                        callback={responseFacebook} />
+                                </div>
+                            </div> */}
                         </form>
                     </div >
                 </Modal.Body>

@@ -78,7 +78,7 @@ function App(props) {
               ) : (
                   <ul className="navbar-nav ml-auto nav-flex-icons">
                     <li className="nav-item">
-                      <Route path="/login" component={Login} />
+                      <Login />
                     </li>
                   </ul>
                 ))
@@ -113,11 +113,11 @@ function App(props) {
             </>
           ) : (
             <>
-
             </>
           )
         )
       }
+      {/* <Route path="/login" component={Login} /> */}
     </Router >
 
   );
