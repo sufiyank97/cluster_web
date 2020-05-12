@@ -52,6 +52,7 @@ function App(props) {
 
   return (
     <Router history={history}>
+
       <React.Fragment>
         <nav className="navbar navbar-expand-lg navbar-light py-4" style={{ boxShadow: '0 0.1rem 0.4rem rgba(0, 0, 0, 0.15)', backgroundColor: '#f4f4f4' }}>
           <a className="navbar-brand" href="#logo">LOGO</a>
@@ -77,8 +78,7 @@ function App(props) {
               ) : (
                   <ul className="navbar-nav ml-auto nav-flex-icons">
                     <li className="nav-item">
-                      <Link to="/login"><button className="btn btn-primary" onClick={() => hideTools.current.style.display = 'none'}>
-                        Login</button></Link>
+                      <Link to="/login" replace><Login /></Link>
                     </li>
                   </ul>
                 ))
@@ -112,7 +112,7 @@ function App(props) {
           </>
         ) : (
           <>
-            <Route path="/login" component={Login} />
+
           </>
         )
       )
